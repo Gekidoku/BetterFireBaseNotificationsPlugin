@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;</TargetFrameworks>
+		<TargetFrameworks>net7.0;net7.0-android33.0;net7.0-ios;</TargetFrameworks>
 	
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -16,15 +16,16 @@
 
 	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android33.0'">
 	  <PackageReference Include="Xamarin.Firebase.Messaging">
-	    <Version>123.1.2.2</Version>
+	    <Version>123.0.8</Version>
 	  </PackageReference>
 	  <PackageReference Include="Xamarin.GooglePlayServices.Tasks">
 	    <Version>118.0.2.3</Version>
 	  </PackageReference>
-    <PackageReference Include="Xamarin.AndroidX.Activity" Version="1.7.2" />
-    <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.7.2" />
+    <PackageReference Include="Xamarin.Firebase.Common" Version="120.1.2" />
+    <!--<PackageReference Include="Xamarin.AndroidX.Activity" Version="1.7.2" />
+    <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.7.2" />-->
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-ios'">
