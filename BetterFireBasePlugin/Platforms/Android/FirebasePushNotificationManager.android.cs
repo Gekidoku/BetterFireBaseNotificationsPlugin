@@ -177,7 +177,8 @@ namespace Plugin.BetterFirebasePushNotification
                 // Create channel to show notifications.
                 var channelId = DefaultNotificationChannelId;
                 var channelName = DefaultNotificationChannelName;
-                var notificationManager = (NotificationManager)_context.GetSystemService(Context.NotificationService);
+                
+                var notificationManager = (NotificationManager) global::Android.App.Application.Context.GetSystemService(Context.NotificationService);
 
                 Android.Net.Uri defaultSoundUri = SoundUri != null ? SoundUri : RingtoneManager.GetDefaultUri(RingtoneType.Notification);
                 AudioAttributes attributes = new AudioAttributes.Builder()
