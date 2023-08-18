@@ -21,11 +21,19 @@ You may need to add
 - [x] Notifications with Data<br/>
 - [x] Notifications with user actions like in in the crossgeeks library<br/>
 - [x] Silent notifications in foreground and background<br/>
-- [ ] Notifications when the app is closed/killed. still have to test this / start on it.<br/>
+- [x] Notifications when the app is closed/killed. still have to test this / start on it.<br/>
 # What works so far in iOS
-- [x] Nothing
+- [x] Basic Notifications <br/>
+- [x] Notifications with Data<br/>
+- [x] Notifications with user actions like in in the crossgeeks library<br/>
+- [x] Silent notifications in foreground and background<br/>
 Havent started testing with ios yet. So nothing is confirmed.
 
+# Note on useractions on ios
+Apple displays these weird, to me at least.
+you have to swipe down the notification to see the actions. just clicking on it doesnt work and gets treated as the notification being opened.
+You can, like I did, check in your OnNotificationOpened if the notification has a click_action and use a DisplayAlert to give the user a chance to respond.
+Same goes on android. if you click on the notification instead of on one of the actions it gets treated as OnNotificationOpened.
 
 # My app project
 My app is a default maui app without blazor
