@@ -97,13 +97,26 @@ on your builder add the following
 private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
     {
         builder.ConfigureLifecycleEvents(events => {
-            #if IOS
-            //events.AddiOS(iOS => iOS.WillFinishLaunching((_,options) => {
+#if IOS
+            events.AddiOS(iOS => iOS.WillFinishLaunching((_, options) =>
+            {
+                var usercategories = new NotificationUserCategory[]
+            {
+                new NotificationUserCategory("StillAlive", new List<NotificationUserAction>
+                {
+                    new NotificationUserAction("Yes","Yes", NotificationActionType.Foreground),
+                    new NotificationUserAction("No","No", NotificationActionType.Foreground)
 
-            //    CrossFirebase.Initialize();
-            //    return false;
-            //}));
-            #elif ANDROID
+                })
+               
+
+            };
+                //If you dont want useractions call one of the other initialize options
+                FirebasePushNotificationManager.Initialize(options, usercategories, true);
+                return false;
+            }));
+           
+#elif ANDROID
             var usercategories = new NotificationUserCategory[]
             {
                 new NotificationUserCategory("StillAlive", new List<NotificationUserAction>
@@ -116,11 +129,12 @@ private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder build
 
             };
 
-            events.AddAndroid(android => android.OnCreate((activity, _) =>            
+            events.AddAndroid(android => android.OnCreate((activity, _) =>
+            //If you dont want useractions call one of the other initialize options
             FirebasePushNotificationManager.Initialize(usercategories, true, false, true)
 
             ));
-        #endif
+#endif
         });
   builder.Services.AddSingleton<IPushNotificationHandler, DefaultPushNotificationHandler>();
   return builder;
