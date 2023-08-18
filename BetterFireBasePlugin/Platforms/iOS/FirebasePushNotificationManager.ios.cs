@@ -304,6 +304,23 @@ namespace Plugin.BetterFirebasePushNotification
             NSUserDefaults.StandardUserDefaults.SetString(string.Empty, FirebaseTokenKey);
             
         }
+
+        [Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
+        public void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            // If you are receiving a notification message while your app is in the background,
+            // this callback will not be fired 'till the user taps on the notification launching the application.
+
+            // If you disable method swizzling, you'll need to call this method. 
+            // This lets FCM track message delivery and analytics, which is performed
+            // automatically with method swizzling enabled.
+            FirebasePushNotificationManager.DidReceiveMessage(userInfo);
+            // Do your magic to handle the notification data
+            System.Console.WriteLine(userInfo);
+            completionHandler(UIBackgroundFetchResult.NewData);
+
+        }
+
         // To receive notifications in foreground on iOS 10 devices.
         [Export("userNotificationCenter:willPresentNotification:withCompletionHandler:")]
         public void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
@@ -314,20 +331,26 @@ namespace Plugin.BetterFirebasePushNotification
             var parameters = GetParameters(notification.Request.Content.UserInfo);
             _onNotificationReceived?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
             BetterFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
-
+            
+            if ((parameters.TryGetValue("silent", out var silent) && ($"{silent}".ToLower() == "true")))
+            {
+                  
+                    return ;            
+            }
+            
             if ((parameters.TryGetValue("priority", out var priority) && ($"{priority}".ToLower() == "high" || $"{priority}".ToLower() == "max")))
             {
-                if (!CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.Alert))
+                if (!CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.List | UNNotificationPresentationOptions.Banner))
                 {
-                    CurrentNotificationPresentationOption |= UNNotificationPresentationOptions.Alert;
+                    CurrentNotificationPresentationOption |= UNNotificationPresentationOptions.List | UNNotificationPresentationOptions.Banner;
 
                 }
             }
             else if ($"{priority}".ToLower() == "default" || $"{priority}".ToLower() == "low" || $"{priority}".ToLower() == "min")
             {
-                if (CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.Alert))
+                if (CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.List | UNNotificationPresentationOptions.Banner))
                 {
-                    CurrentNotificationPresentationOption &= ~UNNotificationPresentationOptions.Alert;
+                    CurrentNotificationPresentationOption &= ~UNNotificationPresentationOptions.List | UNNotificationPresentationOptions.Banner;
 
                 }
             }
