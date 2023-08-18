@@ -167,6 +167,6 @@ Or maybe you want to listen for token refreshes and send the new token to a back
 ```
 
 # What Now
-For now i have to test ios.
-Also for some reason the lifecycle OnCreate isnt triggered every time I click on the debug button in visual studio. but it is then triggered if i background and foreground the app. So have some searching to do 🔍
+Since most scenarios work now im going to convert this to a Nuget package.
+
   
