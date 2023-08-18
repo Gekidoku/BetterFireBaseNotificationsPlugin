@@ -27,7 +27,7 @@ You may need to add
 - [x] Notifications with Data<br/>
 - [x] Notifications with user actions like in in the crossgeeks library<br/>
 - [x] Silent notifications in foreground and background<br/>
-Havent started testing with ios yet. So nothing is confirmed.
+
 
 # Note on useractions on ios
 Apple displays these weird, to me at least.
