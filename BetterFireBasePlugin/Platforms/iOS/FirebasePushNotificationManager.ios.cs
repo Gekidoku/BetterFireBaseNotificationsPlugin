@@ -334,8 +334,10 @@ namespace Plugin.BetterFirebasePushNotification
             
             if ((parameters.TryGetValue("silent", out var silent) && ($"{silent}".ToLower() == "true")))
             {
-                  
-                    return ;            
+                if (!CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.None))
+                {
+                    CurrentNotificationPresentationOption |= UNNotificationPresentationOptions.None;
+                }
             }
             
             if ((parameters.TryGetValue("priority", out var priority) && ($"{priority}".ToLower() == "high" || $"{priority}".ToLower() == "max")))
