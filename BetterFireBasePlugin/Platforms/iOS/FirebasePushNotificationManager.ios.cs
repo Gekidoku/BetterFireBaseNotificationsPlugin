@@ -135,6 +135,7 @@ namespace Plugin.BetterFirebasePushNotification
             if (App.DefaultInstance == null)
             {
                 App.Configure();
+               
             }
 
             BetterFirebasePushNotification.Current.NotificationHandler = BetterFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
@@ -332,13 +333,7 @@ namespace Plugin.BetterFirebasePushNotification
             _onNotificationReceived?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
             BetterFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
             
-            if ((parameters.TryGetValue("silent", out var silent) && ($"{silent}".ToLower() == "true")))
-            {
-                if (!CurrentNotificationPresentationOption.HasFlag(UNNotificationPresentationOptions.None))
-                {
-                    CurrentNotificationPresentationOption |= UNNotificationPresentationOptions.None;
-                }
-            }
+            
             
             if ((parameters.TryGetValue("priority", out var priority) && ($"{priority}".ToLower() == "high" || $"{priority}".ToLower() == "max")))
             {
