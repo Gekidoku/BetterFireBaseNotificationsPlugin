@@ -13,6 +13,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Version>3.1.5</Version>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 
 	</PropertyGroup>
 
@@ -30,6 +31,20 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-ios'">
 	  <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="8.10.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\..\Documents\LICENSE.txt">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="LICENSE.txt">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
