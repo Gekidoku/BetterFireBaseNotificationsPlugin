@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.BetterFirebasePushNotification", "BetterFireBasePlugin\Plugin.BetterFirebasePushNotification.csproj", "{F54F6A34-F43C-407E-A9E0-3880886AF31F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireBaseSampleApp", "FireBaseSampleApp\FireBaseSampleApp.csproj", "{A322CB85-260D-437F-9FF6-A8B4AB3F3756}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{F54F6A34-F43C-407E-A9E0-3880886AF31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F54F6A34-F43C-407E-A9E0-3880886AF31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F54F6A34-F43C-407E-A9E0-3880886AF31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A322CB85-260D-437F-9FF6-A8B4AB3F3756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A322CB85-260D-437F-9FF6-A8B4AB3F3756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A322CB85-260D-437F-9FF6-A8B4AB3F3756}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A322CB85-260D-437F-9FF6-A8B4AB3F3756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A322CB85-260D-437F-9FF6-A8B4AB3F3756}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A322CB85-260D-437F-9FF6-A8B4AB3F3756}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
