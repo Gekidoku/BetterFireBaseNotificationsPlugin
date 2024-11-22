@@ -370,6 +370,12 @@ namespace Plugin.BetterFirebasePushNotification
             Messaging.SharedInstance.ApnsToken = deviceToken;
         }
 
+        [Export("application:didRegisterForRemoteNotificationsWithDeviceToken:")]
+        public virtual void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            Messaging.SharedInstance.ApnsToken = deviceToken;
+        }
+
         public static void DidRegisterRemoteNotifications(NSData deviceToken)
         {
 
