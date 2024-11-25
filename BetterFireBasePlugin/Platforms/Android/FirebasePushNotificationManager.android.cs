@@ -54,9 +54,23 @@ namespace Plugin.BetterFirebasePushNotification
         public static NotificationImportance DefaultNotificationChannelImportance { get; set; } = NotificationImportance.Default;
 
         internal static Type DefaultNotificationActivityType { get; set; } = null;
-
+        private static TimeSpan _RateLimit { get; set; } = new TimeSpan(0, 0, 3);
+        public static TimeSpan RateLimit
+        {
+            get
+            {
+                return _RateLimit;
+            }
+            set
+            {
+                _RateLimit = value;
+            }
+        }
         //internal static PushNotificationActionReceiver ActionReceiver = new PushNotificationActionReceiver();
-
+        public static void SetRateLimit(TimeSpan rateLimit)
+        {
+            RateLimit = rateLimit;
+        }
         public static void ProcessIntent(Activity activity, Intent intent, bool enableDelayedResponse = true)
         {
             DefaultNotificationActivityType = activity.GetType();

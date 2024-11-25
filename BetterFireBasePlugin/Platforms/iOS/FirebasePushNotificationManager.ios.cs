@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Firebase.CloudMessaging;
 using Firebase.Core;
@@ -18,14 +19,14 @@ namespace Plugin.BetterFirebasePushNotification
     public class FirebasePushNotificationManager : NSObject, IFirebasePushNotification, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         public static UNNotificationPresentationOptions CurrentNotificationPresentationOption { get; set; } = UNNotificationPresentationOptions.None;
-
+        private readonly NotificationRateLimiter willPresentNotificationRateLimiter = new NotificationRateLimiter();
         private static Queue<Tuple<string, bool>> pendingTopics = new Queue<Tuple<string, bool>>();
         private static bool hasToken = false;
         private static NSString FirebaseTopicsKey = new NSString("FirebaseTopics");
         private const string FirebaseTokenKey = "FirebaseToken";
         private static NSMutableArray currentTopics = (NSUserDefaults.StandardUserDefaults.ValueForKey(FirebaseTopicsKey) as NSArray ?? new NSArray()).MutableCopy() as NSMutableArray;
         public string Token { get { return string.IsNullOrEmpty(Messaging.SharedInstance.FcmToken) ? (NSUserDefaults.StandardUserDefaults.StringForKey(FirebaseTokenKey) ?? string.Empty) : Messaging.SharedInstance.FcmToken; } }
-
+        
         private static IList<NotificationUserCategory> usernNotificationCategories = new List<NotificationUserCategory>();
         private static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
@@ -129,14 +130,23 @@ namespace Plugin.BetterFirebasePushNotification
         }
 
         public IPushNotificationHandler NotificationHandler { get; set; }
-
+        private static TimeSpan _RateLimit {get;set;} = new TimeSpan(0,0,3);
+        public static TimeSpan RateLimit {get
+        {
+            return _RateLimit;
+        }
+        set
+        {
+            _RateLimit = value;
+        }
+        }
         public static void Initialize(NSDictionary options, bool autoRegistration = true)
         {
-            if (App.DefaultInstance == null)
-            {
+            if(App.DefaultInstance == null){
                 App.Configure();
-               
             }
+               
+            
 
             BetterFirebasePushNotification.Current.NotificationHandler = BetterFirebasePushNotification.Current.NotificationHandler ?? new DefaultPushNotificationHandler();
             Messaging.SharedInstance.AutoInitEnabled = autoRegistration;
@@ -178,6 +188,9 @@ namespace Plugin.BetterFirebasePushNotification
 
             RegisterUserNotificationCategories(notificationUserCategories);
 
+        }
+        public static void SetRateLimit(TimeSpan rateLimit){
+            RateLimit = rateLimit;
         }
         public static void RegisterUserNotificationCategories(NotificationUserCategory[] userCategories)
         {
@@ -315,6 +328,17 @@ namespace Plugin.BetterFirebasePushNotification
             // If you disable method swizzling, you'll need to call this method. 
             // This lets FCM track message delivery and analytics, which is performed
             // automatically with method swizzling enabled.
+            // if(OperatingSystem.IsIOSVersionAtLeast(18))
+            // {
+            //     var parameters = GetParameters(userInfo);
+            //     parameters.
+            //     if(this.willPresentNotificationRateLimiter.HasReachedLimit(notification.Request.Identifier, _RateLimit))
+            //     {
+            //             return;
+            //     }
+
+            // }
+            
             FirebasePushNotificationManager.DidReceiveMessage(userInfo);
             // Do your magic to handle the notification data
             System.Console.WriteLine(userInfo);
@@ -329,11 +353,20 @@ namespace Plugin.BetterFirebasePushNotification
             // Do your magic to handle the notification data
             System.Console.WriteLine(notification.Request.Content.UserInfo);
             System.Diagnostics.Debug.WriteLine("WillPresentNotification");
+             System.Diagnostics.Debug.WriteLine($"identifier {notification.Request.Identifier}");
             var parameters = GetParameters(notification.Request.Content.UserInfo);
+            
+            
+            if(OperatingSystem.IsIOSVersionAtLeast(18))
+            {
+                if(this.willPresentNotificationRateLimiter.HasReachedLimit(notification.Request.Identifier, _RateLimit))
+                {
+                        return;
+                }
+
+            }
             _onNotificationReceived?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
             BetterFirebasePushNotification.Current.NotificationHandler?.OnReceived(parameters);
-            
-            
             
             if ((parameters.TryGetValue("priority", out var priority) && ($"{priority}".ToLower() == "high" || $"{priority}".ToLower() == "max")))
             {
@@ -358,6 +391,7 @@ namespace Plugin.BetterFirebasePushNotification
         {
             Messaging.SharedInstance.AppDidReceiveMessage(data);
             var parameters = GetParameters(data);
+            
 
             _onNotificationReceived?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(parameters));
 
