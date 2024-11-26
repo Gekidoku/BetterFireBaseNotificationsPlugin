@@ -142,9 +142,9 @@ namespace Plugin.BetterFirebasePushNotification
         }
         public static void Initialize(NSDictionary options, bool autoRegistration = true)
         {
-            if(App.DefaultInstance == null){
+           
                 App.Configure();
-            }
+            
                
             
 
@@ -284,7 +284,8 @@ namespace Plugin.BetterFirebasePushNotification
                     }
                     else
                     {
-                        InvokeOnMainThread(() => UIApplication.SharedApplication.RegisterForRemoteNotifications());
+                        MainThread.BeginInvokeOnMainThread(() => { UIApplication.SharedApplication.RegisterForRemoteNotifications(); });
+                       
                     }
                 });
 
@@ -328,16 +329,7 @@ namespace Plugin.BetterFirebasePushNotification
             // If you disable method swizzling, you'll need to call this method. 
             // This lets FCM track message delivery and analytics, which is performed
             // automatically with method swizzling enabled.
-            // if(OperatingSystem.IsIOSVersionAtLeast(18))
-            // {
-            //     var parameters = GetParameters(userInfo);
-            //     parameters.
-            //     if(this.willPresentNotificationRateLimiter.HasReachedLimit(notification.Request.Identifier, _RateLimit))
-            //     {
-            //             return;
-            //     }
-
-            // }
+           
             
             FirebasePushNotificationManager.DidReceiveMessage(userInfo);
             // Do your magic to handle the notification data
