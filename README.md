@@ -166,6 +166,22 @@ Or maybe you want to listen for token refreshes and send the new token to a back
 }
 ```
 
+# ios 18 Double Notifications
+I ran into an issue where on ios 18 my willPresentNotification triggered twice. 
+So I looked around for solutions and found one to implement in this project. Credit to https://github.com/thomasgalliker/Plugin.FirebasePushNotifications
+His project makes it a toggelable option if it should check for it. With mine you can only change the ratelimit time. Default is 3 seconds.
+You can modify this by calling FirebasePushNotificationManager.SetRateLimit and pass it a timespan. 
+I do this in iOS.WillFinishLaunching.
+
+# No notifications in iOS?
+Check if you uploaded your apns key to firebase console.
+You can find this by going to your Firebase console > Project Settings > Cloud Messaging > Scroll down to Apple app configuration.
+and select your app. Then Upload your APNs auth key.
+You get this APNS key from your apple developer env.
+
+
+
+
 # What Now
 Since most scenarios work now im going to convert this to a Nuget package.
 
