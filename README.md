@@ -1,8 +1,7 @@
 # BetterFireBaseNotificationsPlugin
-Attempting to upgrade CrossFireBasePlugin to MAUI
+Attempt is going well.
+I use this in 2 of my production apps now.
 
-Been using https://github.com/CrossGeeks/FirebasePushNotificationPlugin for my Xamarin app.
-this doesnt work for MAUI .net7 so im trying to upgrade it to maui .net7 
 
 # So far so good
 For now this project builds and can be added to a solution.
