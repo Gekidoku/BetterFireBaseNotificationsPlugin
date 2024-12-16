@@ -179,9 +179,11 @@ and select your app. Then Upload your APNs auth key.
 You get this APNS key from your apple developer env.
 
 Another issue could be you have this in your info.plist
+
+```XML
 <key>FirebaseAppDelegateProxyEnabled</key>
 <false/>
-
+```
 remove this.
 
 
