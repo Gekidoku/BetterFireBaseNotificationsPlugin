@@ -388,6 +388,9 @@ namespace Plugin.BetterFirebasePushNotification
                 chanId = $"{channelId}";
             }
             var AAKey = false;
+
+
+
             var notificationBuilder = new NotificationCompat.Builder(context, chanId)
                  .SetSmallIcon(smallIconResource)
                  .SetContentTitle(title)
@@ -395,9 +398,10 @@ namespace Plugin.BetterFirebasePushNotification
                  .SetAutoCancel(true)
                  .SetWhen(Java.Lang.JavaSystem.CurrentTimeMillis())
                  .SetContentIntent(pendingIntent)
-                 .SetCategory(NotificationCompat.CategoryReminder);
+                 .SetCategory(NotificationCompat.CategoryReminder)
+                 .Extend(new CarExtender());
                 
-
+          
             if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
             {
                 notificationBuilder.SetShowWhen(showWhenVisible);
