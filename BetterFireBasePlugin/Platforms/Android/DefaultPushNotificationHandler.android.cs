@@ -19,6 +19,8 @@ using Java.Util;
 using static Android.App.ActivityManager;
 using Application = Android.App.Application;
 using Color = Android.Graphics.Color;
+using static AndroidX.Core.App.NotificationCompat;
+using static Android.Provider.Telephony.Sms;
 
 
 
@@ -147,6 +149,11 @@ namespace Plugin.BetterFirebasePushNotification
         /// Use BigText notification style to support long message
         /// </summary>
         public const string BigTextStyleKey = "bigtextstyle";
+
+        /// <summary>
+        /// Android Auto Support
+        /// </summary>
+        public const string AndroidAutoKey = "android_auto";
 
         public virtual void OnOpened(NotificationResponse response)
         {
@@ -380,14 +387,16 @@ namespace Plugin.BetterFirebasePushNotification
             {
                 chanId = $"{channelId}";
             }
-
+            var AAKey = false;
             var notificationBuilder = new NotificationCompat.Builder(context, chanId)
                  .SetSmallIcon(smallIconResource)
                  .SetContentTitle(title)
                  .SetContentText(message)
                  .SetAutoCancel(true)
                  .SetWhen(Java.Lang.JavaSystem.CurrentTimeMillis())
-                 .SetContentIntent(pendingIntent);
+                 .SetContentIntent(pendingIntent)
+                 .SetCategory(NotificationCompat.CategoryReminder);
+                
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
             {
@@ -460,8 +469,8 @@ namespace Plugin.BetterFirebasePushNotification
                 {
                     System.Diagnostics.Debug.WriteLine($"{DomainTag} - Failed to set sound {ex}");
                 }
-            }
 
+            }
 
 
             // Try to resolve (and apply) localized parameters
