@@ -403,6 +403,7 @@ namespace Plugin.BetterFirebasePushNotification
             }
         }
 
+
         private static FirebasePushNotificationTokenEventHandler _onTokenRefresh;
         public event FirebasePushNotificationTokenEventHandler OnTokenRefresh
         {
@@ -426,6 +427,31 @@ namespace Plugin.BetterFirebasePushNotification
             remove
             {
                 _onNotificationDeleted -= value;
+            }
+        }
+
+        private static FirebasePushNotificationDataEventHandler _onNotificationReject;
+        public event FirebasePushNotificationDataEventHandler OnNotificationReject
+        {
+            add
+            {
+                _onNotificationReject += value;
+            }
+            remove
+            {
+                _onNotificationReject -= value;
+            }
+        }
+        private static FirebasePushNotificationDataEventHandler _onNotificationAccept;
+        public event FirebasePushNotificationDataEventHandler OnNotificationAccept
+        {
+            add
+            {
+                _onNotificationAccept += value;
+            }
+            remove
+            {
+                _onNotificationAccept -= value;
             }
         }
 
@@ -542,6 +568,14 @@ namespace Plugin.BetterFirebasePushNotification
             var response = new NotificationResponse(data, data.ContainsKey(DefaultPushNotificationHandler.ActionIdentifierKey) ? $"{data[DefaultPushNotificationHandler.ActionIdentifierKey]}" : string.Empty);
 
             _onNotificationAction?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationResponseEventArgs(response.Data, response.Identifier, response.Type));
+        }
+        internal static void RegisterAccept(IDictionary<string, object> data)
+        {
+            _onNotificationAccept?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
+        }
+        internal static void RegisterReject(IDictionary<string, object> data)
+        {
+            _onNotificationReject?.Invoke(BetterFirebasePushNotification.Current, new FirebasePushNotificationDataEventArgs(data));
         }
         internal static void RegisterDelete(IDictionary<string, object> data)
         {
