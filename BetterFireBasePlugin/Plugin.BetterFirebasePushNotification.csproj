@@ -10,7 +10,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>3.2.6-alpha</Version>
+		<Version>3.2.7-alpha</Version>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		 <PackageProjectUrl>https://github.com/Gekidoku/BetterFireBaseNotificationsPlugin</PackageProjectUrl>
 		 <RepositoryUrl>https://github.com/Gekidoku/BetterFireBaseNotificationsPlugin</RepositoryUrl>

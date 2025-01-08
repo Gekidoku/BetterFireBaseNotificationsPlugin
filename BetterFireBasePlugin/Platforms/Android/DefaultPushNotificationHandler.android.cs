@@ -404,9 +404,12 @@ namespace Plugin.BetterFirebasePushNotification
                  .SetPriority(NotificationCompat.PriorityHigh)
                  .SetVisibility(NotificationCompat.VisibilityPublic)
                  .SetAllowSystemGeneratedContextualActions(true);
-            
-            var carExtender = new NotificationCompat.CarExtender();
-            notificationBuilder.Extend(carExtender);
+
+            //var carExtender = new NotificationCompat.CarExtender()
+            //.SetColor(notificationColor ?? Color.Blue)
+            //.SetLargeIcon(null)  // Optional: you can set a car-specific large icon
+            //.SetUnreadConversation(null);  // We're using MessagingStyle instead
+            //notificationBuilder.Extend(carExtender);
 
 
 
@@ -493,45 +496,45 @@ namespace Plugin.BetterFirebasePushNotification
                 notificationBuilder.SetColor(notificationColor.Value);
             }
 
-            //if (useBigTextStyle && Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean)
-            //{
-            //    // Using BigText notification style to support long message
-            //    var style = new NotificationCompat.BigTextStyle();
-            //    style.BigText(message);
-            //    notificationBuilder.SetStyle(style);
-            //}
-            var appName = context.ApplicationInfo.LoadLabel(context.PackageManager);
-
-            var sender = new AndroidX.Core.App.Person.Builder()
-            .SetName(appName)
-            .SetImportant(true)
-            .Build();
-            var messages = new List<NotificationCompat.MessagingStyle.Message>
+            if (useBigTextStyle && Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean)
             {
-                new NotificationCompat.MessagingStyle.Message(
-                 message,
-                 Java.Lang.JavaSystem.CurrentTimeMillis(),
-                 sender)
-            };
-            var messagingStyle = new NotificationCompat.MessagingStyle(sender)
-            .SetConversationTitle(title)
-            .SetGroupConversation(false);
-            foreach (var msg in messages)
-            {
-                messagingStyle.AddMessage(msg);
+                // Using BigText notification style to support long message
+                var style = new NotificationCompat.BigTextStyle();
+                style.BigText(message);
+                notificationBuilder.SetStyle(style);
             }
+            //var appName = context.ApplicationInfo.LoadLabel(context.PackageManager);
+
+            //var sender = new AndroidX.Core.App.Person.Builder()
+            //.SetName(appName)
+            //.SetImportant(true)
+            //.Build();
+            //var messages = new List<NotificationCompat.MessagingStyle.Message>
+            //{
+            //    new NotificationCompat.MessagingStyle.Message(
+            //     message,
+            //     Java.Lang.JavaSystem.CurrentTimeMillis(),
+            //     sender)
+            //};
+            //var messagingStyle = new NotificationCompat.MessagingStyle(sender)
+            //.SetConversationTitle(title)
+            //.SetGroupConversation(false);
+            //foreach (var msg in messages)
+            //{
+            //    messagingStyle.AddMessage(msg);
+            //}
 
             //notificationBuilder.SetStyle(messagingStyle);
 
             //var AcceptIntent = new Intent(context, typeof(PushNotificationReadReceiver));
             //AcceptIntent.SetAction("ACTION_ACCEPT");
-            
+
             //AcceptIntent.PutExtra("notification_id", notifyId);
             //AcceptIntent.PutExtra("message", message);
             //AcceptIntent.PutExtras(extras);
             //var readPendingIntent = PendingIntent.GetBroadcast(
             //context,
-            //1, 
+            //1,
             //AcceptIntent,
             //PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
 
