@@ -10,7 +10,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">18.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>3.2.7-alpha</Version>
+		<Version>3.2.8-alpha</Version>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		 <PackageProjectUrl>https://github.com/Gekidoku/BetterFireBaseNotificationsPlugin</PackageProjectUrl>
 		 <RepositoryUrl>https://github.com/Gekidoku/BetterFireBaseNotificationsPlugin</RepositoryUrl>
@@ -36,8 +36,9 @@
     <PackageReference Include="AdamE.Firebase.iOS.Installations" Version="10.29.0.1" />
 	  <PackageReference Include="AdamE.Firebase.iOS.CloudMessaging" Version="10.29.0.1" />
       <PackageReference Include="AdamE.Firebase.iOS.Core" Version="10.29.0.1" />
+	  
 	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <None Include="..\..\..\..\Documents\LICENSE.txt">
 	    <Pack>True</Pack>

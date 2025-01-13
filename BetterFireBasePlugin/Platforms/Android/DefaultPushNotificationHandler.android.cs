@@ -405,11 +405,7 @@ namespace Plugin.BetterFirebasePushNotification
                  .SetVisibility(NotificationCompat.VisibilityPublic)
                  .SetAllowSystemGeneratedContextualActions(true);
 
-            //var carExtender = new NotificationCompat.CarExtender()
-            //.SetColor(notificationColor ?? Color.Blue)
-            //.SetLargeIcon(null)  // Optional: you can set a car-specific large icon
-            //.SetUnreadConversation(null);  // We're using MessagingStyle instead
-            //notificationBuilder.Extend(carExtender);
+         
 
 
 
@@ -503,67 +499,7 @@ namespace Plugin.BetterFirebasePushNotification
                 style.BigText(message);
                 notificationBuilder.SetStyle(style);
             }
-            //var appName = context.ApplicationInfo.LoadLabel(context.PackageManager);
-
-            //var sender = new AndroidX.Core.App.Person.Builder()
-            //.SetName(appName)
-            //.SetImportant(true)
-            //.Build();
-            //var messages = new List<NotificationCompat.MessagingStyle.Message>
-            //{
-            //    new NotificationCompat.MessagingStyle.Message(
-            //     message,
-            //     Java.Lang.JavaSystem.CurrentTimeMillis(),
-            //     sender)
-            //};
-            //var messagingStyle = new NotificationCompat.MessagingStyle(sender)
-            //.SetConversationTitle(title)
-            //.SetGroupConversation(false);
-            //foreach (var msg in messages)
-            //{
-            //    messagingStyle.AddMessage(msg);
-            //}
-
-            //notificationBuilder.SetStyle(messagingStyle);
-
-            //var AcceptIntent = new Intent(context, typeof(PushNotificationReadReceiver));
-            //AcceptIntent.SetAction("ACTION_ACCEPT");
-
-            //AcceptIntent.PutExtra("notification_id", notifyId);
-            //AcceptIntent.PutExtra("message", message);
-            //AcceptIntent.PutExtras(extras);
-            //var readPendingIntent = PendingIntent.GetBroadcast(
-            //context,
-            //1,
-            //AcceptIntent,
-            //PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
-
-            //var AcceptAction = new NotificationCompat.Action.Builder(
-            //0, // You'll need this drawable resource
-            //"Accepteren",
-            //readPendingIntent).SetSemanticAction(NotificationCompat.Action.SemanticActionMarkAsRead)
-            //.Build();
-
-
-            //var declineIntent = new Intent(context, typeof(PushNotificationReadReceiver));
-            //declineIntent.SetAction("ACTION_DECLINE");
-            //declineIntent.PutExtra("notification_id", notifyId);
-            //declineIntent.PutExtras(extras);
-
-            //var declinePendingIntent = PendingIntent.GetBroadcast(
-            //    context,
-            //    3,  // Unique request code
-            //    declineIntent,
-            //    PendingIntentFlags.UpdateCurrent | PendingIntentFlags.Mutable);
-
-            //var declineAction = new NotificationCompat.Action.Builder(
-            //    0,  // No icon
-            //    "Weigeren",
-            //    declinePendingIntent)
-            //    .Build();
-
-            //notificationBuilder.AddAction(AcceptAction);
-            //notificationBuilder.AddAction(declineAction);
+           
 
             var category = string.Empty;
             if (parameters.TryGetValue(CategoryKey, out var categoryContent))
