@@ -33,9 +33,9 @@
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.Contains('ios'))">
-    <PackageReference Include="AdamE.Firebase.iOS.Installations" Version="10.29.0.1" />
-	  <PackageReference Include="AdamE.Firebase.iOS.CloudMessaging" Version="10.29.0.1" />
-      <PackageReference Include="AdamE.Firebase.iOS.Core" Version="10.29.0.1" />
+    <PackageReference Include="AdamE.Firebase.iOS.Installations" Version="12.5.0.4" />
+	  <PackageReference Include="AdamE.Firebase.iOS.CloudMessaging" Version="12.5.0.4" />
+      <PackageReference Include="AdamE.Firebase.iOS.Core" Version="12.5.0.4" />
 	  
 	</ItemGroup>
 	

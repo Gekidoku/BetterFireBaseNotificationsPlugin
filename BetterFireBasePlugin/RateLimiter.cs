@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System;
+using System.Linq;
 
 namespace Plugin.BetterFirebasePushNotification
 {
